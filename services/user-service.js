@@ -69,7 +69,7 @@ const statuses = {
     return await User.findAll({ where: { isActivated: false } });
   },
   default: async () => {
-    await User.findAll();
+    return await User.findAll();
   },
 };
 
