@@ -7,6 +7,7 @@ const fileupload = require("express-fileupload");
 const cors = require("cors");
 const sequelize = require("./db");
 const path = require("path");
+const errorMiddleware = require("./middlewares/error-middleware");
 const app = express();
 
 app.use(cors());
@@ -14,6 +15,7 @@ app.use(fileupload({ createParentPath: true }));
 app.use(express.static(path.resolve("static")));
 app.use(express.json());
 app.use("/api", routes);
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 8080;
 
