@@ -12,9 +12,10 @@ if (process.env.NODE_ENV === "production") {
     logging: false,
     ssl: true,
     dialectOptions: {
-      require: true,
-      ssl: true,
-      rejectUnauthorized: false,
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
     },
   });
 } else {
