@@ -13,6 +13,7 @@ if (process.env.NODE_ENV === "production") {
     ssl: true,
     dialectOptions: {
       require: true,
+      ssl: true,
       rejectUnauthorized: false,
     },
   });
