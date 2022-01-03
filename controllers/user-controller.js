@@ -40,6 +40,16 @@ const activate = async (req, res, next) => {
   }
 };
 
+const refresh = async (req, res, next) => {
+  try {
+    const { refresh_token } = req.headers;
+    const userData = await UserService.refresh(refresh_token);
+    res.json(userData);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getAll = async (req, res, next) => {
   try {
     const { status } = req.params;
@@ -55,4 +65,5 @@ module.exports = {
   getAll,
   login,
   activate,
+  refresh,
 };
