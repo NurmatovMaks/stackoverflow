@@ -3,10 +3,12 @@ require("dotenv").config();
 const routes = require("./routes");
 
 const express = require("express");
+const swaggerUI = require("swagger-ui-express");
 const fileupload = require("express-fileupload");
 const cors = require("cors");
 const sequelize = require("./db");
 const path = require("path");
+const docs = require("./docs");
 const errorMiddleware = require("./middlewares/error-middleware");
 const app = express();
 
@@ -15,6 +17,7 @@ app.use(fileupload({ createParentPath: true }));
 app.use(express.static(path.resolve("static")));
 app.use(express.json());
 app.use("/api", routes);
+app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(docs));
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 8080;

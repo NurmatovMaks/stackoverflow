@@ -3,7 +3,16 @@ const auth = require("./../middlewares/auth-middleware.js");
 const checkRole = require("../middlewares/check-role");
 const UserController = require("./../controllers/user-controller");
 
-router.post("/signup", UserController.signup);
+const { body } = require("express-validator");
+
+router.post(
+  "/signup",
+  body("email").isEmail(),
+  body("password")
+    .isLength({ min: 3, max: 30 })
+    .withMessage("must be at least 3 chars long"),
+  UserController.signup
+);
 router.post("/login", UserController.login);
 router.get("/", auth, checkRole("ADMIN"), UserController.getAll);
 router.post("/refresh", UserController.refresh);

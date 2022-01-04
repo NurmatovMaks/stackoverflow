@@ -1,8 +1,14 @@
 const ErrorHandler = require("./../utils/error-handler");
 const UserService = require("./../services/user-service");
+const { validationResult } = require("express-validator");
 
 const signup = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(ErrorHandler.BadRequest("Validation error", errors.array()));
+    }
+
     const { email, password, firstName, lastName } = req.body;
 
     const userData = await UserService.signup(
